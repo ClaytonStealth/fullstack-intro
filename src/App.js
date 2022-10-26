@@ -48,9 +48,9 @@ const App = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       const result = await fetch(`${urlEndpoint}/blogs`);
-      const blogs = await result.json();
-      console.log(blogs);
-      setBlogs(blogs);
+      const resultBlogs = await result.json();
+      console.log(resultBlogs);
+      setBlogs(resultBlogs);
     };
     fetchBlogs();
   }, []);
