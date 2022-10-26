@@ -1,4 +1,7 @@
 import "./App.css";
+import React, { useState, useEffect } from "react";
+import BlogList from "./components/BlogList";
+import BlogListCard from "./components/BlogListCard";
 
 const sampleBlogs = [
   {
@@ -37,9 +40,25 @@ const sampleBlogs = [
     id: "5",
   },
 ];
+const urlEndpoint = process.env.REACT_APP_URL_ENDPOINT;
 
 const App = () => {
-  return <div className='App-header'></div>;
+  const sampleBlogsCopy = [...sampleBlogs];
+  const [blogs, setBlogs] = useState(sampleBlogsCopy);
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const result = await fetch(`${urlEndpoint}/blogs`);
+      const blogs = await result.json();
+      console.log(blogs);
+      setBlogs(blogs);
+    };
+    fetchBlogs();
+  }, []);
+  return (
+    <div className='App-header'>
+      <BlogList blogs={blogs} />
+    </div>
+  );
 };
 
 export default App;
