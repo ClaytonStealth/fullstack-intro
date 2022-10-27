@@ -41,10 +41,18 @@ const sampleBlogs = [
   },
 ];
 const urlEndpoint = process.env.REACT_APP_URL_ENDPOINT;
-
+const currentYear = new Date().getFullYear();
+const Footer = () => {
+  return (
+    <footer className='footer'>
+      <p>copyright © {currentYear}</p>
+    </footer>
+  );
+};
 const App = () => {
   const sampleBlogsCopy = [...sampleBlogs];
   const [blogs, setBlogs] = useState(sampleBlogsCopy);
+
   useEffect(() => {
     const fetchBlogs = async () => {
       const result = await fetch(`${urlEndpoint}/blogs`);
@@ -57,6 +65,7 @@ const App = () => {
   return (
     <div className='App-header'>
       <BlogList blogs={blogs} />
+      <Footer />
     </div>
   );
 };
