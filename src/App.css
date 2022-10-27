@@ -38,11 +38,20 @@
 }
 
 .footer {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   bottom: 0;
   width: 100%;
   background-color: #282c34;
   color: white;
   text-align: center;
+  background-color: black;
+}
+.option-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  background-color: black;
 }

@@ -6,6 +6,8 @@ const BlogListCard = (props) => {
       <h2>{blog.title}</h2>
       <p>{blog.author}</p>
       <p>{blog.text}</p>
+      <p>{blog.id}</p>
+      <p>{blog.createdAt}</p>
     </div>
   );
 };

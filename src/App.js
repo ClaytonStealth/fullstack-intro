@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import BlogList from "./components/BlogList";
-import BlogListCard from "./components/BlogListCard";
+import OptionBar from "./components/OptionBar";
 
 const sampleBlogs = [
   {
@@ -52,18 +52,27 @@ const Footer = () => {
 const App = () => {
   const sampleBlogsCopy = [...sampleBlogs];
   const [blogs, setBlogs] = useState(sampleBlogsCopy);
-
+  const [urlParamString, setUrlParamString] = useState("");
+  //usEffect hook is waiting for urlParamString before async function fetchBlogs triggers
+  //
   useEffect(() => {
     const fetchBlogs = async () => {
-      const result = await fetch(`${urlEndpoint}/blogs`);
+      const result = await fetch(`${urlEndpoint}/blogs${urlParamString}`);
       const resultBlogs = await result.json();
       console.log(resultBlogs);
       setBlogs(resultBlogs);
     };
     fetchBlogs();
-  }, []);
+  }, [urlParamString]);
+  //generateUrlParams taking in limit,page,sortBy,order
+  //setting urlParams to equal string interpolation combining all the props coming from option bar
+  const generateUrlParams = (limit, page, sortBy, order) => {
+    let urlParams = `?limit=${limit}&page=${page}&sortBy=${sortBy}&order=${order}`;
+    setUrlParamString(urlParams);
+  };
   return (
     <div className='App-header'>
+      <OptionBar generateUrlParams={generateUrlParams} />
       <BlogList blogs={blogs} />
       <Footer />
     </div>
